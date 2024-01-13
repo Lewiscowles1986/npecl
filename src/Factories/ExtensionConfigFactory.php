@@ -18,12 +18,12 @@ class ExtensionConfigFactory
      *
      * @param array{
      *      name: string,
-     *      type: string,
-     *      license: string,
+     *      type?: string,
+     *      license?: string,
      *      description: string,
      *      require?: array,
      *      conflict?: array,
-     *      php-ext: array{
+     *      php-ext?: array{
      *          priority: int,
      *          config: array
      *      }
@@ -34,13 +34,22 @@ class ExtensionConfigFactory
     public static function create(array $data): ExtensionConfig
     {
         // Convert enums, create sub-objects, and handle other logic as needed
-        $type = Type::from($data['type']);
-        $license = License::from($data['license']);
+        $type = Type::tryFrom($data['type'] ?? 'invalid') ?? Type::INVALID;
+        $license = License::tryFrom($data['license'] ?? 'unknown') ?? License::UNKNOWN;
         $require = PackageCollectionFactory::create($data['require'] ?? []);
         $conflict = PackageCollectionFactory::create($data['conflict'] ?? []);
+
         $phpExtConfig = new PhpExtConfig(
-            new Priority($data['php-ext']['priority']),
-            new PhpExtConfigOptions($data['php-ext']['config'])
+            (
+                (isset($data['php-ext']) && is_array($data['php-ext'])) ?
+                new Priority($data['php-ext']['priority']) :
+                new Priority(20)
+            ),
+            (
+                (isset($data['php-ext']) && is_array($data['php-ext'])) ?
+                new PhpExtConfigOptions($data['php-ext']['config']) :
+                new PhpExtConfigOptions([])
+            )
         );
 
         return new ExtensionConfig(
