@@ -95,7 +95,7 @@ describe("example with only name and description", function() {
     });
 
     it('has assigned invalid type, due to missing config value', function() {
-        expect($this->extensionConfig->getType())->toEqual(Type::INVALID);
+        expect($this->extensionConfig->getType())->toEqual(Type::PHP_EXT);
     });
 
     it('has assigned unknown license, due to missing config value', function() {
@@ -135,12 +135,11 @@ describe("example with only name and description", function() {
     });
 });
 
-describe("example with only name, description and invalid license and type values", function() {
+describe("example with only name, and invalid license and type values", function() {
     beforeEach(fn() => $this->extensionConfig = ExtensionConfigFactory::create([
         "name" => "ext-jabberwocky",
         "type" => "jabberwocky",
         "license" => "jabberwocky",
-        "description" => "Some mad misconfigured extension",
     ]));
 
     it('has created an instance', function () {
@@ -160,7 +159,7 @@ describe("example with only name, description and invalid license and type value
     });
 
     it('has assigned the correct description', function() {
-        expect($this->extensionConfig->getDescription())->toEqual('Some mad misconfigured extension');
+        expect($this->extensionConfig->getDescription())->toEqual('');
     });
 
     it('has an expected container class for requirements', function() {

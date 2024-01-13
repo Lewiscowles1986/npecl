@@ -20,7 +20,7 @@ class ExtensionConfigFactory
      *      name: string,
      *      type?: string,
      *      license?: string,
-     *      description: string,
+     *      description?: string,
      *      require?: array,
      *      conflict?: array,
      *      php-ext?: array{
@@ -34,7 +34,7 @@ class ExtensionConfigFactory
     public static function create(array $data): ExtensionConfig
     {
         // Convert enums, create sub-objects, and handle other logic as needed
-        $type = Type::tryFrom($data['type'] ?? 'invalid') ?? Type::INVALID;
+        $type = Type::tryFrom($data['type'] ?? 'php-ext') ?? Type::INVALID;
         $license = License::tryFrom($data['license'] ?? 'unknown') ?? License::UNKNOWN;
         $require = PackageCollectionFactory::create($data['require'] ?? []);
         $conflict = PackageCollectionFactory::create($data['conflict'] ?? []);
@@ -56,7 +56,7 @@ class ExtensionConfigFactory
             $data['name'],
             $type,
             $license,
-            $data['description'],
+            $data['description'] ?? '',
             $require,
             $conflict,
             $phpExtConfig
