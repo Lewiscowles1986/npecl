@@ -78,3 +78,68 @@ describe("given example from Derickr google doc", function() {
         expect($this->extensionConfig->getPhpExtConfig())->toBeInstanceOf(PhpExtConfig::class);
     });
 });
+
+
+describe("example with no listed requirements or conflicts", function() {
+    beforeEach(fn() => $this->extensionConfig = ExtensionConfigFactory::create([
+        "name" => "ext-xdebug",
+        "type" => "php-ext",
+        "license" => "Xdebug-1.03",
+        "description" => "Xdebug is an amazing tool...",
+        "php-ext" => [
+            "priority" => 90,
+            "config" => [
+                "enable-xdebug-dev" => false,
+                "without-xdebug-compression" => false
+            ]
+        ]
+    ]));
+
+    it('has created an instance', function () {
+        expect($this->extensionConfig)->toBeInstanceOf(ExtensionConfig::class);
+    });
+
+    it('has assigned the correct name', function() {
+        expect($this->extensionConfig->getName())->toEqual('ext-xdebug');
+    });
+
+    it('has assigned the correct type', function() {
+        expect($this->extensionConfig->getType())->toEqual(Type::PHP_EXT);
+    });
+
+    it('has assigned the correct license', function() {
+        expect($this->extensionConfig->getLicense())->toEqual(License::XDEBUG);
+    });
+
+    it('has assigned the correct description', function() {
+        expect($this->extensionConfig->getDescription())->toEqual('Xdebug is an amazing tool...');
+    });
+
+    it('has an expected container class for requirements', function() {
+        expect($this->extensionConfig->getRequires())->toBeInstanceOf(PackageCollection::class);
+    });
+
+    it('has a empty requirements container as expected from example', function() {
+        expect($this->extensionConfig->getRequires()->isEmpty())->toBeTrue();
+    });
+
+    it('has requirements container with correct number of packages', function() {
+        expect($this->extensionConfig->getRequires()->getPackages())->toBeEmpty();
+    });
+
+    it('has an expected container class for conflicts', function() {
+        expect($this->extensionConfig->getConflicts())->toBeInstanceOf(PackageCollection::class);
+    });
+
+    it('has empty conflicts container as expected from example', function() {
+        expect($this->extensionConfig->getConflicts()->isEmpty())->toBeTrue();
+    });
+
+    it('has conflicts container with correct number of packages', function() {
+        expect($this->extensionConfig->getConflicts()->getPackages())->toBeEmpty();
+    });
+    
+    it('has expected php-extension config class for "tweaks"', function() {
+        expect($this->extensionConfig->getPhpExtConfig())->toBeInstanceOf(PhpExtConfig::class);
+    });
+});
