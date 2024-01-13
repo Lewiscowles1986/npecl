@@ -2,6 +2,7 @@
     "name": "lewiscowles/npecl",
     "description": "An attempt at parsing and dealing with npecl format as laid out by Derick Rethans",
     "type": "library",
+    "license": "MIT",
     "require-dev": {
         "phpstan/phpstan": "^1.10",
         "pestphp/pest": "^2.31",
