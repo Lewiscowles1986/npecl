@@ -1,0 +1,30 @@
+{
+    "name": "lewiscowles/npecl",
+    "description": "An attempt at parsing and dealing with npecl format as laid out by Derick Rethans",
+    "type": "library",
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "pestphp/pest": "^2.31",
+        "phpunit/php-code-coverage": "^10.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lewiscowles\\Npecl\\": "src/"
+        },
+        "files": [
+            "src/Helpers/functions.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Lewis Cowles",
+            "email": "lewiscowles@me.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
