@@ -8,14 +8,14 @@ class Priority
 
     public function __construct(int $value)
     {
-        if ($value < 0 || $value > 99) {
-            throw new \InvalidArgumentException("Priority must be between 0 and 99.", $value);
+        if ($value < 1 || $value > 99) {
+            throw new \InvalidArgumentException("Priority must be between 1 and 99.", $value);
         }
         $this->value = $value;
     }
 
     public function getValue(): int
     {
-        return $this->value;
+        return str_pad($this->value, 2, '0', STR_PAD_LEFT);
     }
 }
