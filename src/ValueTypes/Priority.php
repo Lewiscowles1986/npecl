@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Lewiscowles\Npecl\ValueTypes;
 
@@ -14,8 +15,8 @@ class Priority
         $this->value = $value;
     }
 
-    public function getValue(): int
+    public function getValue(): string
     {
-        return str_pad($this->value, 2, '0', STR_PAD_LEFT);
+        return str_pad("{$this->value}", 2, '0', STR_PAD_LEFT);
     }
 }
